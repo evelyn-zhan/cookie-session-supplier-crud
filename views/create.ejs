@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.2/css/bulma.min.css">
+
+        <title>Create Supplier</title>
+
+        <style>
+            input[type="text"]::placeholder {
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app" class="px-6 py-4 has-background-white" style="height: 100vh;">
+            <h1 class="title has-text-black">Add Supplier</h1>
+
+            <div class="field">
+                <label class="label has-text-black">Company Name</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Company Name" autocomplete="off" name="company" id="company">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Contact Name</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Contact Name" autocomplete="off" name="contact" id="contact">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Email</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Email" autocomplete="off" name="email" id="email">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Phone Number</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Phone Number" autocomplete="off" name="phone" id="phone">
+                </div>    
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Active</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="0 / 1" autocomplete="off" name="active" id="active">
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-success has-text-white" id="save">Save</button>
+            </div>
+        </div>
+        
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            document.getElementById('save').onclick = () => {
+                axios({
+                    method: 'POST',
+                    url: '/api/supplier',
+                    data: {
+                        company_name: document.getElementById('company').value,
+                        contact_name: document.getElementById('contact').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        active: document.getElementById('active').value
+                    }
+                })
+                    .then((result) => {
+                        alert(`Status: ${result.status}\nNew supplier saved successfully!`)
+                        window.location = '/'
+                    })
+                    .catch((error) => {
+                        alert(`Error: ${error}`)
+                    })
+            }
+        </script>
+    </body>
+</html>

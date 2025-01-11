@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.2/css/bulma.min.css">
+
+        <title>Login</title>
+    </head>
+
+    <body>
+        <div id="app" class="px-6 py-5 has-background-white" style="height: 100vh;">
+            <h1 class="title has-text-black has-text-weight-semibold">Login Form</h1>
+            <form action="/login" method="post" name="login">
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input type="email" placeholder="Email" name="email" value="bunny@me.com" class="input has-background-white has-text-black">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input type="password" placeholder="Password" name="password" value="bunny" class="input has-background-white has-text-black">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <% if (message) { %>
+                    <div class="field">
+                        <span class="tag is-link is-danger has-text-white"><%= message %></span>
+                    </div>
+                <% } %>
+
+                <div class="field">
+                    <p class="control">
+                        <button class="button is-success">Login</button>
+                        <a href="/" class="button">Home</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

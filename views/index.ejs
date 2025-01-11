@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.2/css/bulma.min.css">
+
+        <title>Home</title>
+    </head>
+
+    <body>
+        <header>
+            <nav class="px-5 py-2 navbar is-success" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a href="/" class="navbar-item is-size-3 has-text-weight-bold has-text-white">Supplier Web</a>
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="mx-3">
+                                <%= user.email %>
+                            </div>
+                            <div class="buttons">
+                                <%- (!user ? '<a href="/login" class="button is-light">Login</a>' : '<a href="/logout" class="button is-light">Logout</a>') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div id="app" class="px-6 py-4 has-background-white" style="height: 100vh;">
+            <h1 class="title has-text-black">Supplier List</h1>
+
+            <div>
+                <% if (user) { %>
+                    <a href="/create" class="button is-success has-text-white">Add New</a>
+                <% } %>
+
+                <table class="table is-striped is-bordered mt-3 is-fullwidth" style="margin: 10px auto;">
+                    <thead class="has-background-white">
+                        <tr>
+                            <th class="has-text-black">Company Name</th>
+                            <th class="has-text-black">Contact Name</th>
+                            <th class="has-text-black">Email</th>
+                            <th class="has-text-black">Phone</th>
+                            <th class="has-text-black has-text-centered">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% suppliers.forEach((supplier) => { %>
+                            <tr class="has-background-white">
+                                <td class="has-text-black"><%= supplier.company_name %></td>
+                                <td class="has-text-black"><%= supplier.contact_name %></td>
+                                <td class="has-text-black"><%= supplier.email %></td>
+                                <td class="has-text-black"><%= supplier.phone %></td>
+                                <td class="has-text-centered">
+                                    <% if (user) { %>
+                                        <a href="/edit/<%= supplier.id %>" class="button is-warning is-small">Edit</a>
+                                        <button onclick=<%= 'del(' + supplier.id + ')' %> class="button is-danger is-small" style="margin-left: 5px;">Delete</button>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            const del = (id) => {
+                axios.delete(`/api/supplier/${id}`)
+                    .then((result) => {
+                        alert(`Status: ${result.status}\nSupplier deleted!`)
+                        location.reload()
+                    })
+                    .catch((error) => {
+                        alert(`Error: ${error}`)
+                    })
+            }
+        </script>
+    </body>
+</html>

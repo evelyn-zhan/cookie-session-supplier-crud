@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.2/css/bulma.min.css">
+
+        <title>Edit Supplier</title>
+
+        <style>
+            input[type="text"]::placeholder {
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app" class="px-6 py-4 has-background-white" style="height: 100vh;">
+            <h1 class="title has-text-black">Edit Supplier</h1>
+
+            <div class="field">
+                <label class="label has-text-black">Company Name</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Company Name" autocomplete="off" name="company" id="company" value="<%= supplier.company_name %>">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Contact Name</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Contact Name" autocomplete="off" name="contact" id="contact" value="<%= supplier.contact_name %>">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Email</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Email" autocomplete="off" name="email" id="email" value="<%= supplier.email %>">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Phone Number</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Phone Number" autocomplete="off" name="phone" id="phone" value="<%= supplier.phone %>">
+                </div>    
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Active</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="0 / 1" autocomplete="off" name="active" id="active" value="<%= supplier.active %>"">
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-warning has-text-white" id="save" onclick=<%= 'edit(' + supplier.id + ')' %>>Update</button>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            const edit = (id) => {
+                axios({
+                    method: 'PUT',
+                    url: `/api/supplier/${id}`,
+                    data: {
+                        company_name: document.getElementById('company').value,
+                        contact_name: document.getElementById('contact').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        active: document.getElementById('active').value
+                    }
+                })
+                    .then((result) => {
+                        alert(`Status: ${result.status}\nSupplier updated successfully!`)
+                        window.location = '/'
+                    })
+                    .catch((error) => {
+                        alert(`Error: ${error}`)
+                    })
+            }
+        </script>
+    </body>
+</html>
