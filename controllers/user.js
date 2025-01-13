@@ -22,7 +22,7 @@ const auth = (req, res, next) => {
     User.findOne({ where: { email: data.email } })
         .then((user) => {
             if (!user) {
-                req.session.error = 'Incorrect email or password.'
+                req.session.error = 'Email not registered.'
                 res.redirect('/login')
             } else if (data.password != user.password) {
                 req.session.error = 'Incorrect password.'
