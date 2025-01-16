@@ -51,7 +51,11 @@
                             <th class="has-text-black">Contact Name</th>
                             <th class="has-text-black">Email</th>
                             <th class="has-text-black">Phone</th>
-                            <th class="has-text-black has-text-centered">Actions</th>
+                            <th class="has-text-black">Created By</th>
+                            <th class="has-text-black">Updated By</th>
+                            <% if (user) { %>
+                                <th class="has-text-black has-text-centered">Actions</th>
+                            <% } %>
                         </tr>
                     </thead>
 
@@ -62,12 +66,14 @@
                                 <td class="has-text-black"><%= supplier.contact_name %></td>
                                 <td class="has-text-black"><%= supplier.email %></td>
                                 <td class="has-text-black"><%= supplier.phone %></td>
-                                <td class="has-text-centered">
-                                    <% if (user) { %>
+                                <td class="has-text-black"><%= supplier.createdBy %></td>
+                                <td class="has-text-black"><%= supplier.updatedBy %></td>
+                                <% if (user) { %>
+                                    <td class="has-text-centered has-background-white">
                                         <a href="/edit/<%= supplier.id %>" class="button is-warning is-small">Edit</a>
                                         <button onclick=<%= 'del(' + supplier.id + ')' %> class="button is-danger is-small" style="margin-left: 5px;">Delete</button>
-                                    <% } %>
-                                </td>
+                                    </td>
+                                <% } %>
                             </tr>
                         <% }) %>
                     </tbody>
