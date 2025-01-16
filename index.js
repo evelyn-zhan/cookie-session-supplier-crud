@@ -5,7 +5,7 @@ import session from 'express-session'
 
 const app = express()
 const hostname = '127.0.0.1'
-const port = 3000
+const port = 3001
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -50,7 +50,7 @@ app.get('/edit/:id', (req, res) => {
 })
 
 app.post('/api/supplier', (req, res) => {
-    Supplier.create({ ...req.body })
+    Supplier.create({ ...req.body, createdBy: req.session.user.username })
         .then((result) => {
             res.status(200).json({
                 status: 200,
@@ -68,7 +68,7 @@ app.post('/api/supplier', (req, res) => {
 })
 
 app.put('/api/supplier/:id', (req, res) => {
-    Supplier.update({ ...req.body }, { where: { id: req.params.id } })
+    Supplier.update({ ...req.body, updatedBy: req.session.user.username }, { where: { id: req.params.id } })
         .then(([affectedRows]) => {
             res.status(200).json({
                 status: 200,
