@@ -6,7 +6,9 @@ const Supplier = sequelize.define('supplier',
         contact_name: DataTypes.STRING,
         email: DataTypes.STRING,
         phone: DataTypes.STRING,
-        active: DataTypes.TINYINT
+        active: DataTypes.TINYINT,
+        createdBy: DataTypes.STRING,
+        updatedBy: DataTypes.STRING
     }
 )
 
